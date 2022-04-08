@@ -6,7 +6,7 @@ import java.util.*;
  * CSCU9T4 Java strings and files exercise.
  *
  */
-public class FilesInOut {
+public class FormatNamesm {
 
 	public static void main(String[] args) {
 
@@ -45,16 +45,36 @@ public class FilesInOut {
 			while(inFile.hasNextLine()) {
 				// Split up words line by line
 				String[] words = inFile.nextLine().split(" ");
-				if(!uppercase) {
-					words[0] = words[0].substring(0,1).toUpperCase() + words[0].substring(1);
-					words[1] = words[1].substring(0,1).toUpperCase() + words[1].substring(1);
+				// If a middle name is present
+				if(words.length == 4) {
+					if(!uppercase) {
+						words[0] = words[0].substring(0,1).toUpperCase() + words[0].substring(1);
+						words[1] = words[1].substring(0,1).toUpperCase() + words[1].substring(1) + ".";
+						words[2] = words[2].substring(0,1).toUpperCase() + words[2].substring(1);
+					} 
+					// If letters are all uppercase
+					else {
+						words[0] = words[0].toUpperCase();
+						words[1] = words[1].toUpperCase() + ".";
+						words[2] = words[2].toUpperCase();
+					}
+					// Format the date
+					words[3] = words[3].substring(0,2) + "/" + words[3].substring(2,4) + "/" + words[3].substring(4,8);
+					output += words[0] + " " + words[1] + " " + words[2] + "\t\t" + words[3] + "\n";
 				} else {
-					words[0] = words[0].toUpperCase();
-					words[1] = words[1].toUpperCase();
-				}
-				// Format the date
-				words[2] = words[2].substring(0,2) + "/" + words[2].substring(2,4) + "/" + words[2].substring(4,8);
-				output += words[0] + " " + words[1] + "\t\t" + words[2] + "\n";
+					// If no middle name is present
+					if(!uppercase) {
+						words[0] = words[0].substring(0,1).toUpperCase() + words[0].substring(1);
+						words[1] = words[1].substring(0,1).toUpperCase() + words[1].substring(1);
+					} else {
+						// If letters are all uppercase
+						words[0] = words[0].toUpperCase();
+						words[1] = words[1].toUpperCase();
+					}
+					// Format the date
+					words[2] = words[2].substring(0,2) + "/" + words[2].substring(2,4) + "/" + words[2].substring(4,8);
+					output += words[0] + " " + words[1] + "\t\t" + words[2] + "\n";
+				}	
 			}
 			inFile.close();
 			System.out.println(output);
